@@ -1,0 +1,967 @@
+/* ==========================================================================
+   오늘의 식단표 - 초등학생 취향 저격! 뽀짝 젤리 캐릭터 CSS 스타일 가이드
+   ========================================================================== */
+
+/* 1. 아기자기하고 달콤한 파스텔 디자인 시스템 토큰 */
+:root {
+    /* 달콤한 디저트와 장난감 나라에서 영감을 얻은 캔디 파스텔 컬러 */
+    --color-primary: #ff7b93;       /* 달콤한 딸기 마카롱 핑크 */
+    --color-primary-dark: #e04d6a;  /* 진한 딸기 시럽 핑크 */
+    --color-primary-light: #ffe5ea; /* 보들보들한 마시멜로 핑크 */
+    
+    --color-secondary: #4ecdc4;     /* 청량한 소다 민트 */
+    --color-secondary-light: #e8f9f8;/* 맑은 우유 소다 */
+    
+    --color-accent: #ffb800;        /* 쫀득한 망고 젤리 옐로우 */
+    --color-accent-light: #fff8db;  /* 부드러운 커스터드 크림 */
+    --color-accent-orange: #ff8a5c; /* 달콤상콤 탠저린 오렌지 */
+    
+    /* 따뜻하고 편안한 뉴트럴 배경 톤 */
+    --color-bg-base: #fffbf4;       /* 따뜻한 우유 비스킷 색 */
+    --color-text-main: #4a3e3d;     /* 부드러운 코코아 초콜릿 브라운 (눈의 피로를 덜어주는 아동용 글자색) */
+    --color-text-muted: #8c7a78;    /* 부드러운 라떼 브라운 */
+    --color-white: #ffffff;
+    
+    /* 포근한 구름 질감 효과 */
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: #ffdce2;
+    
+    /* 동글동글 빵 모양의 라운드 코너 (둥글기를 대폭 극대화!) */
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 32px;
+    --radius-full: 9999px;
+    
+    /* 푹신푹신한 젤리 입체 섀도우 */
+    --shadow-sm: 0 4px 0px rgba(74, 62, 61, 0.08);
+    --shadow-md: 0 8px 0px rgba(255, 123, 147, 0.12), 0 4px 12px rgba(74, 62, 61, 0.05);
+    --shadow-lg: 0 16px 0px rgba(255, 123, 147, 0.08), 0 12px 24px rgba(74, 62, 61, 0.06);
+    
+    /* 아동 친화형 둥글둥글 폰트 스택 */
+    --font-sans: 'Gowun Dodum', 'Jua', 'Pretendard', sans-serif;
+    --font-number: 'Outfit', 'Jua', sans-serif;
+}
+
+/* 2. 전역 스타일 및 통통 튀는 구름 배경 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--color-text-main);
+    background-color: var(--color-bg-base);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow-x: hidden;
+    padding: 24px 16px;
+    /* 따뜻하고 아기자기한 체크무늬 격자 패턴 배경 살짝 가미 */
+    background-image: 
+        radial-gradient(var(--color-primary-light) 12%, transparent 12%),
+        radial-gradient(var(--color-primary-light) 12%, transparent 12%);
+    background-size: 32px 32px;
+    background-position: 0 0, 16px 16px;
+}
+
+/* 장식용 알록달록 비눗방울 구름들 */
+.app-background-decor {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.app-background-decor .circle {
+    position: absolute;
+    border-radius: var(--radius-full);
+    filter: blur(40px);
+    opacity: 0.45;
+    animation: floatDecor 10s ease-in-out infinite alternate;
+}
+
+.app-background-decor .circle-1 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, #ffdce2 0%, rgba(255, 123, 147, 0.2) 100%);
+    top: -80px;
+    left: -80px;
+}
+
+.app-background-decor .circle-2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--color-accent-light) 0%, rgba(255, 184, 0, 0.15) 100%);
+    bottom: -100px;
+    right: -80px;
+    animation-delay: 3s;
+}
+
+.app-background-decor .circle-3 {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, var(--color-secondary-light) 0%, rgba(78, 205, 196, 0.2) 100%);
+    top: 40%;
+    right: -50px;
+    animation-delay: 6s;
+}
+
+@keyframes floatDecor {
+    0% { transform: translateY(0) scale(1) rotate(0deg); }
+    100% { transform: translateY(30px) scale(1.15) rotate(15deg); }
+}
+
+/* 3. 장난감 상자 느낌의 메인 컨테이너 */
+.app-container {
+    width: 100%;
+    max-width: 600px;
+    background: var(--glass-bg);
+    border: 4px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: 10;
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 상단 구름모양 장식 귀여운 테두리 */
+.app-container::before {
+    content: '🎈 🧸 🍰 🥛';
+    position: absolute;
+    top: -22px;
+    left: 36px;
+    font-size: 20px;
+    background: var(--color-white);
+    border: 3px solid var(--glass-border);
+    padding: 2px 14px;
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-sm);
+}
+
+/* 4. 헤더 및 CSS 캐릭터 일러스트 */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px dashed var(--glass-border);
+    padding-bottom: 24px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+}
+
+/* CSS로 정교하게 구현한 초당이(계란프라이 캐릭터) 일러스트 */
+.brand-character-container {
+    position: relative;
+    width: 62px;
+    height: 62px;
+}
+
+/* 프라이 캐릭터의 탱글탱글한 흰자 */
+.cute-char-egg {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: var(--color-white);
+    border-radius: 46% 54% 50% 50% / 40% 40% 60% 60%; /* 구불구불 부드러운 자유 곡선 */
+    border: 3px solid var(--color-text-main);
+    box-shadow: 0 4px 0 rgba(74, 62, 61, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: eggWobble 4s ease-in-out infinite alternate;
+}
+
+/* 톡 튀어나온 볼록한 노른자 캐릭터 얼굴 */
+.egg-yolk {
+    width: 34px;
+    height: 34px;
+    background-color: var(--color-accent);
+    border-radius: var(--radius-full);
+    border: 3px solid var(--color-text-main);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 깜찍한 땡글눈 */
+.char-eyes {
+    position: relative;
+    width: 18px;
+    height: 6px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.char-eyes::before, .char-eyes::after {
+    content: '';
+    width: 5px;
+    height: 5px;
+    background-color: var(--color-text-main);
+    border-radius: var(--radius-full);
+    display: inline-block;
+}
+
+/* 볼에 묻은 분홍 볼터치 */
+.char-cheeks {
+    position: absolute;
+    width: 24px;
+    height: 6px;
+    display: flex;
+    justify-content: space-between;
+    top: 15px;
+}
+
+.char-cheeks::before, .char-cheeks::after {
+    content: '';
+    width: 6px;
+    height: 4px;
+    background-color: var(--color-primary);
+    border-radius: var(--radius-full);
+    opacity: 0.8;
+}
+
+/* 생글생글 웃는 미소 */
+.char-mouth {
+    width: 6px;
+    height: 4px;
+    border: 2px solid var(--color-text-main);
+    border-top: none;
+    border-radius: 0 0 100px 100px;
+    margin-top: 2px;
+}
+
+/* 로고 뒤에 비스듬히 놓인 마법의 요술 숟가락 아이콘 */
+.main-icon {
+    position: absolute;
+    bottom: -6px;
+    right: -6px;
+    font-size: 20px;
+    color: var(--color-primary);
+    background: var(--color-accent-light);
+    border: 2px solid var(--color-text-main);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--radius-full);
+    transform: rotate(15deg);
+    box-shadow: var(--shadow-sm);
+    z-index: 5;
+}
+
+/* 캐릭터 마우스 오버 시 신나서 통통 튀고 눈 감는 애니메이션 */
+.brand:hover .cute-char-egg {
+    animation: bounceJelly 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite alternate;
+}
+
+.brand:hover .char-eyes::before, 
+.brand:hover .char-eyes::after {
+    height: 2px;
+    border-radius: 0;
+    background: transparent;
+    border-top: 2px solid var(--color-text-main);
+}
+
+@keyframes eggWobble {
+    0% { transform: rotate(-3deg) scale(1); }
+    100% { transform: rotate(3deg) scale(1.02); }
+}
+
+@keyframes bounceJelly {
+    0% { transform: translateY(0) scale(1, 1); }
+    100% { transform: translateY(-8px) scale(0.95, 1.05); }
+}
+
+.brand-text h1 {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--color-text-main);
+    letter-spacing: -0.5px;
+    font-family: 'Jua', var(--font-sans);
+}
+
+.brand-text .highlight {
+    color: var(--color-primary);
+    position: relative;
+    display: inline-block;
+}
+
+.brand-text .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background-color: var(--color-accent-light);
+    z-index: -1;
+    border-radius: var(--radius-full);
+}
+
+.brand-subtitle {
+    font-size: 11px;
+    font-family: var(--font-number);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-text-muted);
+    font-weight: 800;
+    margin-top: 2px;
+}
+
+/* 학교 정보 젤리 배지 */
+.school-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--color-secondary-light);
+    color: #0d8a80;
+    padding: 8px 16px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 800;
+    font-family: 'Jua', var(--font-sans);
+    border: 3px solid var(--color-text-main);
+    box-shadow: var(--shadow-sm);
+    transform: rotate(2deg);
+    transition: transform 0.2s;
+}
+
+.school-badge:hover {
+    transform: rotate(-2deg) scale(1.05);
+}
+
+/* 5. 날짜 제어 패널 디자인 */
+.control-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.date-selector-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-white);
+    border: 3.5px solid var(--color-text-main);
+    border-radius: var(--radius-md);
+    padding: 6px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s;
+}
+
+.date-selector-wrapper:focus-within {
+    transform: scale(1.01);
+}
+
+.btn-date-nav {
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: transparent;
+    color: var(--color-primary);
+    font-size: 22px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-date-nav:hover {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary-dark);
+    transform: scale(1.15);
+}
+
+.btn-date-nav:active {
+    transform: scale(0.9);
+}
+
+.date-input-container {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    min-height: 44px;
+}
+
+.calendar-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--color-primary);
+    font-size: 20px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.custom-date-picker {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.display-date-text {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--color-text-main);
+    padding-left: 28px;
+    pointer-events: none;
+    z-index: 1;
+    font-family: 'Jua', var(--font-sans);
+}
+
+/* 오늘 이동 뽀짝이 버튼 */
+.btn-today-quick {
+    align-self: flex-end;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--color-accent-light);
+    border: 2.5px solid var(--color-text-main);
+    color: var(--color-text-main);
+    font-size: 13px;
+    font-weight: 800;
+    font-family: 'Jua', var(--font-sans);
+    padding: 8px 18px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    box-shadow: 4px 4px 0px var(--color-text-main);
+    transition: all 0.15s ease-out;
+}
+
+.btn-today-quick:hover {
+    background-color: var(--color-accent);
+    transform: translateY(2px);
+    box-shadow: 2px 2px 0px var(--color-text-main);
+}
+
+.btn-today-quick:active {
+    transform: translateY(4px);
+    box-shadow: 0px 0px 0px var(--color-text-main);
+}
+
+/* 6. 메인 식단 카드 디자인 (둥글둥글 쿠키 모양 식단판) */
+.meal-content-area {
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.meal-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.meal-card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    border: 3.5px solid var(--color-text-main);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: fadeInUpJelly 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+}
+
+/* 카드 양 모서리에 리본 테이프 데코 */
+.meal-card::after {
+    content: '🥞';
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    font-size: 20px;
+}
+
+.meal-card:hover {
+    transform: scale(1.02) rotate(-1deg);
+    box-shadow: var(--shadow-lg);
+}
+
+@keyframes fadeInUpJelly {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scaleY(0.85);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+    }
+}
+
+/* 식단 카드 헤더 */
+.meal-card-header {
+    background-color: var(--color-primary-light);
+    border-bottom: 3.5px solid var(--color-text-main);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.meal-type {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 19px;
+    font-weight: 800;
+    font-family: 'Jua', var(--font-sans);
+    color: var(--color-primary-dark);
+}
+
+.meal-type i {
+    font-size: 22px;
+}
+
+.meal-calorie {
+    background: var(--color-white);
+    color: var(--color-text-main);
+    border: 2.5px solid var(--color-text-main);
+    padding: 4px 14px;
+    border-radius: var(--radius-full);
+    font-size: 14px;
+    font-weight: 800;
+    font-family: var(--font-number);
+    box-shadow: 2px 2px 0px var(--color-text-main);
+}
+
+/* 식단 카드 본문: 메뉴 리스트 */
+.meal-card-body {
+    padding: 24px;
+}
+
+.menu-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    background-color: rgba(255, 248, 219, 0.4);
+    border: 2.5px solid transparent;
+    border-radius: var(--radius-md);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 메뉴 항목 호버 시 젤리처럼 변형 */
+.menu-item:hover {
+    background-color: var(--color-accent-light);
+    border-color: var(--color-accent);
+    transform: scale(1.03) translateX(4px);
+}
+
+.dish-name {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--color-text-main);
+}
+
+/* 알레르기 미니 비눗방울 배지 */
+.allergy-badge-group {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    max-width: 50%;
+    justify-content: flex-end;
+}
+
+.allergy-badge {
+    background-color: var(--color-white);
+    color: var(--color-primary-dark);
+    font-size: 11px;
+    font-weight: 900;
+    font-family: var(--font-number);
+    width: 22px;
+    height: 22px;
+    border-radius: var(--radius-full);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--color-text-main);
+    cursor: help;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 1px 1px 0px var(--color-text-main);
+}
+
+.allergy-badge:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    transform: scale(1.3) rotate(15deg);
+    box-shadow: 2px 2px 0px var(--color-text-main);
+}
+
+/* 원산지 & 영양정보 푸터 */
+.meal-card-footer {
+    background-color: rgba(255, 251, 244, 0.8);
+    border-top: 3.5px dashed var(--color-text-main);
+    padding: 16px 24px;
+}
+
+.extra-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-row {
+    display: flex;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.info-label {
+    width: 80px;
+    font-weight: 800;
+    color: var(--color-primary-dark);
+    font-family: 'Jua', var(--font-sans);
+    flex-shrink: 0;
+}
+
+.info-value {
+    color: var(--color-text-muted);
+    font-weight: 600;
+}
+
+/* 7. 휴일(Empty) 및 요정(Error) 상태 디자인 */
+.empty-state, .error-state {
+    text-align: center;
+    padding: 44px 24px;
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    border: 4px solid var(--color-text-main);
+    box-shadow: var(--shadow-md);
+    animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.05); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.empty-icon-wrapper, .error-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    border-radius: var(--radius-full);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 38px;
+    border: 3.5px solid var(--color-text-main);
+    box-shadow: 4px 4px 0px var(--color-text-main);
+    animation: floatyIcon 3s ease-in-out infinite alternate;
+}
+
+.empty-icon-wrapper {
+    background-color: var(--color-accent-light);
+    color: var(--color-accent-orange);
+}
+
+.error-icon-wrapper {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+@keyframes floatyIcon {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+
+.empty-state h3, .error-state h3 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--color-text-main);
+    font-family: 'Jua', var(--font-sans);
+}
+
+.empty-state p, .error-state p {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: 26px;
+    font-weight: 600;
+}
+
+/* 뽀짝 동글 대형 버튼 */
+.btn-primary, .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 800;
+    font-family: 'Jua', var(--font-sans);
+    padding: 12px 28px;
+    border-radius: var(--radius-full);
+    border: 3px solid var(--color-text-main);
+    cursor: pointer;
+    transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 4px 4px 0px var(--color-text-main);
+}
+
+.btn-primary {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    background-color: #3cb8af;
+    transform: translateY(2px);
+    box-shadow: 2px 2px 0px var(--color-text-main);
+}
+
+.btn-secondary {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary-dark);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(2px);
+    box-shadow: 2px 2px 0px var(--color-text-main);
+}
+
+.btn-primary:active, .btn-secondary:active {
+    transform: translateY(4px);
+    box-shadow: 0px 0px 0px var(--color-text-main);
+}
+
+/* 8. 로딩용 빵빵한 스켈레톤 디자인 */
+.skeleton-card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    border: 3.5px solid var(--color-text-main);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.skeleton-header {
+    height: 36px;
+    width: 45%;
+    background: linear-gradient(90deg, #fce8eb 25%, #fcd5dc 50%, #fce8eb 75%);
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s infinite;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--color-text-main);
+}
+
+.skeleton-menu-item {
+    height: 48px;
+    width: 100%;
+    background: linear-gradient(90deg, #fff9eb 25%, #ffefa8 50%, #fff9eb 75%);
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s infinite;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--color-text-main);
+}
+
+.skeleton-footer {
+    height: 28px;
+    width: 85%;
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s infinite;
+    border-radius: var(--radius-sm);
+}
+
+/* 9. 알레르기 안내 아코디언 스타일 */
+.allergy-guide-section {
+    background-color: var(--color-white);
+    border: 3.5px solid var(--color-text-main);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.allergy-guide-header {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--color-text-main);
+    font-family: 'Jua', var(--font-sans);
+    background-color: var(--color-accent-light);
+    user-select: none;
+}
+
+.allergy-guide-header:hover {
+    background-color: var(--color-accent);
+}
+
+.allergy-guide-header .toggle-icon {
+    font-size: 18px;
+    transition: transform 0.3s;
+}
+
+.allergy-guide-section.active .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.allergy-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 8px;
+    padding: 0 20px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-out;
+}
+
+.allergy-guide-section.active .allergy-grid-container {
+    padding: 20px;
+    max-height: 350px;
+    opacity: 1;
+}
+
+.allergy-badge-info {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--color-text-main);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background-color: var(--color-bg-base);
+    border-radius: var(--radius-md);
+    border: 2px solid var(--color-text-main);
+}
+
+.allergy-badge-info .num {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    width: 18px;
+    height: 18px;
+    border-radius: var(--radius-full);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 900;
+    font-family: var(--font-number);
+    border: 1px solid var(--color-text-main);
+}
+
+/* 10. 아기자기 푸터 */
+.app-footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--color-text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-top: 3px dashed var(--glass-border);
+    padding-top: 24px;
+    font-weight: 600;
+}
+
+.data-source {
+    color: var(--color-primary);
+    font-weight: 800;
+}
+
+/* 11. 모바일 반응형 처리 */
+@media (max-width: 600px) {
+    body {
+        padding: 16px 8px;
+    }
+    
+    .app-container {
+        padding: 24px 16px;
+        gap: 22px;
+        border-radius: var(--radius-md);
+    }
+    
+    .app-container::before {
+        font-size: 16px;
+        top: -18px;
+        left: 20px;
+        padding: 1px 10px;
+    }
+    
+    .app-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding-bottom: 20px;
+    }
+    
+    .brand-character-container {
+        width: 54px;
+        height: 54px;
+    }
+    
+    .display-date-text {
+        font-size: 16px;
+        padding-left: 24px;
+    }
+    
+    .meal-card-header {
+        padding: 14px 18px;
+    }
+    
+    .meal-card-body {
+        padding: 16px;
+    }
+    
+    .menu-item {
+        padding: 10px 14px;
+    }
+    
+    .dish-name {
+        font-size: 14px;
+    }
+    
+    .allergy-badge-group {
+        max-width: 50%;
+    }
+    
+    .allergy-grid-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
