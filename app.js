@@ -43,6 +43,7 @@ const displayDateText = document.getElementById("displayDateText");
 const btnPrevDay = document.getElementById("btnPrevDay");
 const btnNextDay = document.getElementById("btnNextDay");
 const btnTodayQuick = document.getElementById("btnTodayQuick");
+const btnSelectDate = document.getElementById("btnSelectDate");
 const schoolNameText = document.getElementById("schoolNameText");
 
 // 상태별 화면 영역
@@ -321,6 +322,15 @@ mealDatePicker.addEventListener("change", (e) => {
         currentDate = selectedDate;
         updateDateUI();
         fetchMealData();
+    }
+});
+
+// 달력 직접 선택 버튼 클릭 시 데이트피커(날짜 선택창) 트리거
+btnSelectDate.addEventListener("click", () => {
+    try {
+        mealDatePicker.showPicker(); // 최신 브라우저의 표준 날짜 선택 창 실행
+    } catch (e) {
+        mealDatePicker.click(); // 구형 브라우저 우회 대응
     }
 });
 

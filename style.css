@@ -403,38 +403,66 @@ body {
     flex: 1;
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    cursor: pointer;
+    gap: 8px;
+    padding: 0 8px;
     min-height: 44px;
 }
 
 .calendar-icon {
-    position: absolute;
-    left: 14px;
     color: var(--color-primary);
     font-size: 20px;
-    pointer-events: none;
-    z-index: 2;
+    flex-shrink: 0;
 }
 
 .custom-date-picker {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 1px;
+    height: 1px;
     opacity: 0;
-    cursor: pointer;
-    z-index: 3;
+    pointer-events: none;
+    left: 0;
+    top: 0;
 }
 
 .display-date-text {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 800;
     color: var(--color-text-main);
-    padding-left: 28px;
-    pointer-events: none;
-    z-index: 1;
     font-family: 'Jua', var(--font-sans);
+    margin-right: auto;
+    white-space: nowrap;
+}
+
+/* 새로 추가된 귀엽고 뽀짝한 달력보기 젤리 버튼 */
+.btn-select-date {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    border: 2.5px solid var(--color-text-main);
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 800;
+    font-family: 'Jua', var(--font-sans);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 2px 2px 0px var(--color-text-main);
+    transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    flex-shrink: 0;
+}
+
+.btn-select-date:hover {
+    background-color: #3cb8af;
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 0px var(--color-text-main);
+}
+
+.btn-select-date:active {
+    transform: translateY(1px);
+    box-shadow: 1px 1px 0px var(--color-text-main);
 }
 
 /* 오늘 이동 뽀짝이 버튼 */
